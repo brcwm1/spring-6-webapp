@@ -2,22 +2,23 @@ package guru.springframework.spring6webapp.domain;
 
 import jakarta.persistence.*;
 
-import java.util.Objects;
 import java.util.Set;
 
 @Entity
 public class Publisher {
+
     @Id
-    @GeneratedValue (strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @OneToMany(mappedBy = "publisher")
-    private Set<Book> books;
     private String publisherName;
     private String address;
     private String city;
     private String state;
     private String zipCode;
+
+    @OneToMany(mappedBy = "publisher")
+    private Set<Book> books;
 
     public Long getId() {
         return id;
@@ -82,11 +83,11 @@ public class Publisher {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Publisher)) return false;
 
         Publisher publisher = (Publisher) o;
 
-        return Objects.equals(id, publisher.id);
+        return id != null ? id.equals(publisher.id) : publisher.id == null;
     }
 
     @Override
@@ -94,3 +95,13 @@ public class Publisher {
         return id != null ? id.hashCode() : 0;
     }
 }
+
+
+
+
+
+
+
+
+
+
